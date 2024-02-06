@@ -72,7 +72,7 @@ const MobileNavbar = () => {
             width={23}
             height={23}
           />
-          <p className="h2-bold text-dark100_light900 font-spaceGrotesk ">
+          <p className="h2-bold text-dark100_light900 font-inter ">
             Dev <span className="text-primary-500">Overflow</span>
           </p>
         </Link>
