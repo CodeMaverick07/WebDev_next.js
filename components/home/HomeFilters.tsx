@@ -6,13 +6,13 @@ import { Button } from "../ui/button";
 const HomeFilters = () => {
   const active = "newest";
   return (
-    <div className="mt-10 flex-wrap gap-3 md:flex">
+    <div className="mt-10 flex-wrap gap-3 md:flex max-md:hidden">
       {HomePageFilters.map((item) => {
         return (
           <Button
             key={item.value}
             onClick={() => {}}
-            className={`body-medium mx-1 rounded-lg px-6 py-3  capitalize shadow-none ${
+            className={`body-medium mx-1 my-1 rounded-lg px-6 py-3 capitalize shadow-none ${
               active === item.value
                 ? "bg-primary-100 text-primary-500"
                 : "bg-light-800 text-light-500 dark:bg-dark-400"
