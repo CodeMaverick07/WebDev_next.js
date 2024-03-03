@@ -6,54 +6,12 @@ import { HomePageFilters } from "@/constants/filters";
 import HomeFilters from "@/components/home/HomeFilters";
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/cards/QuestionCard";
-interface QuestionProps {
-  _id: string;
-  title: string;
-  author: { _id: string; name: string; picture: string };
-  upVotes: number;
-  tags: { _id: string; name: string }[];
-  views: number;
-  answers: Array<object>;
-  createdAt: Date;
-}
-const questions: QuestionProps[] = [
-  {
-    _id: "1",
-    title: "cascading deletes in SQLAlchemy?",
-    tags: [
-      { _id: "1", name: "python" },
-      { _id: "2", name: "sql" },
-    ],
-    author: {
-      _id: "1",
-      name: "hemant jatal",
-      picture: "",
-    },
-    upVotes: 2000000,
-    views: 300000,
-    answers: [],
-    createdAt: new Date("2021-09-01T12:00:00.000Z"),
-  },
-  {
-    _id: "2",
-    title: "where to use useClient in next.js",
-    tags: [
-      { _id: "1", name: "python" },
-      { _id: "2", name: "sql" },
-    ],
-    author: {
-      _id: "2",
-      name: "ayush bangar",
-      picture: "",
-    },
-    upVotes: 10000,
-    views: 4000,
-    answers: [],
-    createdAt: new Date("2020-10-12T12:00:00.000Z"),
-  },
-];
+import { getQuestions } from "@/lib/actions/question.action";
 
-export default function Home() {
+export default async function Home() {
+  const result = await getQuestions({});
+
+  console.log(result.questions);
   return (
     <>
       <div className=" flex w-full  flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center ">
@@ -80,8 +38,8 @@ export default function Home() {
       </div>
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
-        {questions.length > 0 ? (
-          questions.map((question) => {
+        {result.questions.length > 0 ? (
+          result.questions.map((question) => {
             return (
               <QuestionCard
                 key={question._id}
