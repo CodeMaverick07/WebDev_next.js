@@ -1,7 +1,7 @@
 import { Schema, models, model, Document } from "mongoose";
 
 export interface IUser extends Document {
-  clearkId: string;
+  clerkId: string;
   name: string;
   username: string;
   email: string;
@@ -10,12 +10,12 @@ export interface IUser extends Document {
   picture: string;
   location?: string;
   portfolioWebsite?: string;
-  requtation?: number;
+  reputation?: number;
   saved: Schema.Types.ObjectId[];
   joinedAt: Date;
 }
 const userSchema = new Schema({
-  clearkId: { type: String, required: true },
+  clerkId: { type: String, required: true },
   name: { type: String, required: true },
   username: { type: String, required: true },
   email: { type: String, required: true },
@@ -24,7 +24,7 @@ const userSchema = new Schema({
   picture: { type: String, required: true },
   location: { type: String, required: false },
   portfolioWebsite: { type: String, required: false },
-  requtation: { type: Number, default: 0 },
+  reputation: { type: Number, default: 0 },
   saved: [{ type: Schema.Types.ObjectId, ref: "Question" }],
   joinedAt: { type: Date, default: Date.now },
 });
