@@ -19,6 +19,7 @@ import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { createQuestion } from "@/lib/actions/question.action";
 
 const Question = () => {
   const type: any = "create";
@@ -37,9 +38,10 @@ const Question = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmiting(true);
     try {
+      await createQuestion({});
       //
     } catch (error) {
     } finally {
@@ -124,6 +126,10 @@ const Question = () => {
                     evt,
                     editor // @ts-ignore
                   ) => (editorRef.current = editor)}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => {
+                    field.onChange(content);
+                  }}
                   initialValue=""
                   init={{
                     height: 350,
