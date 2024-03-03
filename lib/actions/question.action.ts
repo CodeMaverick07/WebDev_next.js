@@ -15,7 +15,7 @@ export async function createQuestion(params: any) {
       content,
       author,
     });
-    const tagDocuments = [];
+    const tagDocuments: any = [];
 
     console.log(tagDocuments);
 
