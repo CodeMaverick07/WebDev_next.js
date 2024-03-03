@@ -24,6 +24,7 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "fetch-blob": "^4.0.0",
+    "jodit-react": "^4.0.15",
     "lucide-react": "^0.294.0",
     "mongoose": "^8.2.0",
     "next": "^14.0.4",

@@ -133,7 +133,7 @@ const Question = ({ mongoUserId }: props) => {
               </FormLabel>
               <FormControl className="mt-3.5 ">
                 <Editor
-                  apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
+                  apiKey="4o63usi0py4hz45mmom5cpd53owv7ds7hc4a9aig3aq7hw1e"
                   onInit={(
                     evt,
                     editor // @ts-ignore
@@ -145,6 +145,7 @@ const Question = ({ mongoUserId }: props) => {
                   initialValue=""
                   init={{
                     height: 350,
+
                     menubar: false,
                     plugins: [
                       "advlist",
@@ -167,7 +168,7 @@ const Question = ({ mongoUserId }: props) => {
                       "undo redo | " +
                       "codesample | bold italic forecolor | alignleft aligncenter |" +
                       "alignright alignjustify | bulllist numlist",
-                    content_style: "body { font-family:Inter; font-size:16px }",
+                    content_style: "body { font-family:Inter; font-size:16px;}",
                   }}
                 />
               </FormControl>
