@@ -21,6 +21,7 @@ import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
+
 interface props {
   mongoUserId: string;
 }
@@ -168,7 +169,7 @@ const Question = ({ mongoUserId }: props) => {
                       "undo redo | " +
                       "codesample | bold italic forecolor | alignleft aligncenter |" +
                       "alignright alignjustify | bulllist numlist",
-                    content_style: "body { font-family:Inter; font-size:16px;}",
+                    content_style: `body { font-family:Inter; font-size:16px; background:#0f1117; color: white;}`,
                   }}
                 />
               </FormControl>
