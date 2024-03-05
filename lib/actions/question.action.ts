@@ -35,8 +35,6 @@ export async function createQuestion(params: CreateQuestionParams) {
     });
     const tagDocuments: any = [];
 
-    console.log(tagDocuments);
-
     for (const tag of tags) {
       const existingTag = await Tag.findOneAndUpdate(
         { name: { $regex: new RegExp(`^${tag}$`, "i") } },
@@ -45,8 +43,6 @@ export async function createQuestion(params: CreateQuestionParams) {
       );
       tagDocuments.push(existingTag._id);
     }
-    console.log("after");
-    console.log(tagDocuments);
 
     await Question.findByIdAndUpdate(question._id, {
       $push: { tags: { $each: tagDocuments } },
