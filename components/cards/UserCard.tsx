@@ -39,7 +39,7 @@ const UserCard = async ({ user }: props) => {
         </div>
         <div className="mt-5">
           {interactedTags.length > 0 ? (
-            <div>
+            <div className="flex flex-wrap gap-2">
               {interactedTags.map((tag) => {
                 return (
                   <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
