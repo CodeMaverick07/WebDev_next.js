@@ -1,6 +1,11 @@
 "use client";
+import {
+  downVoteQuestion,
+  upVoteQuestion,
+} from "@/lib/actions/question.action";
 import { formatViewCount } from "@/lib/utils";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 interface props {
@@ -24,13 +29,62 @@ const Votes = ({
   hasdownVoted,
   hasSaved,
 }: props) => {
-  const handleSave = () => {};
-  const handleVote = (action: String) => {};
+  const pathname = usePathname();
+  const handleSave = async () => {};
+  const handleVote = async (action: String) => {
+    console.log(userId);
+    if (!userId) {
+      return;
+    }
+    console.log(action);
+    if (action === "upvote") {
+      console.log(type);
+      if (type === "question") {
+        console.log("upvoting type question");
+
+        await upVoteQuestion({
+          questionId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
+      } else if (type === "Answer") {
+        // await upVoteAnswer({
+        //   questionId: JSON.parse(itemId),
+        //   userId: JSON.parse(userId),
+        //   hasupVoted,
+        //   hasdownVoted,
+        //   path: pathname,
+        // });
+      }
+    }
+    if (action === "downvote") {
+      if (type === "question") {
+        await downVoteQuestion({
+          questionId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
+      } else if (type === "Answer") {
+        // await downVoteAnswer({
+        //   questionId: JSON.parse(itemId),
+        //   userId: JSON.parse(userId),
+        //   hasupVoted,
+        //   hasdownVoted,
+        //   path: pathname,
+        // });
+      }
+    }
+  };
   return (
     <div className="flex gap-5 ">
       <div className="flex-center gap-2.5">
         <div className="flex-center gap-1.5">
           <Image
+            className=" cursor-pointer"
             src={
               hasupVoted
                 ? "/assets/icons/upvoted.svg"
@@ -49,6 +103,7 @@ const Votes = ({
         </div>
         <div className="flex-center gap-1.5">
           <Image
+            className=" cursor-pointer"
             src={
               hasdownVoted
                 ? "/assets/icons/downvoted.svg"
@@ -67,6 +122,7 @@ const Votes = ({
         </div>
       </div>
       <Image
+        className=" cursor-pointer"
         src={
           hasSaved
             ? "/assets/icons/star-filled.svg"

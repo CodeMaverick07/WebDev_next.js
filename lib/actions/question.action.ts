@@ -6,6 +6,7 @@ import {
   GetQuestionsParams,
   CreateQuestionParams,
   GetQuestionByIdParams,
+  QuestionVoteParams,
 } from "./shared.types";
 import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
@@ -76,5 +77,68 @@ export async function getQuestionById(params: GetQuestionByIdParams) {
     console.log(error);
     console.log("====================================");
     throw Error("problme in get questoin by id funtion");
+  }
+}
+export async function upVoteQuestion(params: QuestionVoteParams) {
+  try {
+    connectToDatabase();
+    const { questionId, userId, hasupVoted, hasdownVoted, path } = params;
+    let updateQuery = {};
+    if (hasupVoted) {
+      updateQuery = { $pull: { upvotes: userId } };
+    } else if (hasdownVoted) {
+      updateQuery = {
+        $pull: { downvotes: userId },
+        $push: { upvotes: userId },
+      };
+    } else {
+      updateQuery = { $addToSet: { upvotes: userId } };
+    }
+
+    const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
+      new: true,
+    });
+
+    if (!question) {
+      throw new Error("question not found upVoteQuestion function");
+    }
+    revalidatePath(path);
+  } catch (error) {
+    console.log("====================================");
+    console.log(error);
+    console.log("====================================");
+    throw Error("problem in upvote question function");
+  }
+}
+
+export async function downVoteQuestion(params: QuestionVoteParams) {
+  try {
+    connectToDatabase();
+    const { questionId, userId, hasupVoted, hasdownVoted, path } = params;
+    let updateQuery = {};
+    if (hasdownVoted) {
+      updateQuery = { $pull: { downvotes: userId } };
+    } else if (hasupVoted) {
+      updateQuery = {
+        $pull: { upvotes: userId },
+        $push: { downvotes: userId },
+      };
+    } else {
+      updateQuery = { $addToSet: { downvotes: userId } };
+    }
+
+    const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
+      new: true,
+    });
+
+    if (!question) {
+      throw new Error("question not found upVoteQuestion function");
+    }
+    revalidatePath(path);
+  } catch (error) {
+    console.log("====================================");
+    console.log(error);
+    console.log("====================================");
+    throw Error("problem in upvote question function");
   }
 }
