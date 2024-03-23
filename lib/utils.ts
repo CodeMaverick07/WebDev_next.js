@@ -44,3 +44,21 @@ export function formatViewCount(count: number): string {
     return `${formattedCount}M`;
   }
 }
+export function formatAndDividerNumber(
+  number: number,
+  divider: number = 1000,
+  decimals: number = 2
+): string {
+  const suffixes = ["", "K", "M", "B", "T"]; // you can extend this array for larger numbers if needed
+  let suffixIndex = 0;
+
+  while (number >= divider && suffixIndex < suffixes.length - 1) {
+    number /= divider;
+    suffixIndex++;
+  }
+
+  const formattedNumber = number.toFixed(decimals);
+  const suffix = suffixes[suffixIndex];
+
+  return `${formattedNumber}${suffix}`;
+}
